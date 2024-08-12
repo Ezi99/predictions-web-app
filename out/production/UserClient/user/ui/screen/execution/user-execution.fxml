@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<ScrollPane fitToHeight="true" fitToWidth="true" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="user.ui.screen.execution.ExecutionController">
+   <content>
+      <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" styleClass="body" stylesheets="@../../../appStyle.css">
+          <bottom>
+              <GridPane BorderPane.alignment="CENTER">
+                  <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                  <children>
+                      <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearButtonListener" prefWidth="60.0" text="Clear" GridPane.rowIndex="2">
+                          <font>
+                              <Font size="14.0" />
+                          </font>
+                      </Button>
+                      <Button fx:id="startButton" mnemonicParsing="false" onAction="#startButtonListener" prefHeight="30.0" prefWidth="60.0" text="Start" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                          <font>
+                              <Font size="14.0" />
+                          </font>
+                      </Button>
+                  <HBox GridPane.columnIndex="1">
+                     <children>
+                        <Label fx:id="envVariableLabel" styleClass="unsuccessful-message" />
+                     </children>
+                  </HBox>
+                  <Label fx:id="entityLabel" styleClass="unsuccessful-message" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelListener" text="cancel" />
+                        <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#confirmListener" text="confirm" />
+                     </children>
+                  </HBox>
+                  <Label fx:id="finalMessageLabel" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  </children>
+                  <padding>
+                      <Insets bottom="40.0" left="30.0" right="30.0" />
+                  </padding>
+                  <BorderPane.margin>
+                      <Insets />
+                  </BorderPane.margin>
+              </GridPane>
+          </bottom>
+          <left>
+              <VBox prefHeight="200.0" prefWidth="167.0" spacing="10.0" BorderPane.alignment="CENTER">
+                  <BorderPane.margin>
+                      <Insets left="20.0" top="70.0" />
+                  </BorderPane.margin>
+                  <children>
+                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Entities">
+                          <font>
+                              <Font size="15.0" />
+                          </font>
+                      </Text>
+                      <TableView fx:id="entityTable" prefHeight="200.0" prefWidth="150.0">
+                          <columns>
+                              <TableColumn fx:id="entityColumn" prefWidth="79.66665649414062" text="Name" />
+                              <TableColumn fx:id="populationColumn" prefWidth="86.33334350585938" text="Population" />
+                          </columns>
+                      </TableView>
+                  </children>
+              </VBox>
+          </left>
+          <right>
+              <VBox prefHeight="230.0" prefWidth="350.0" spacing="10.0" BorderPane.alignment="CENTER">
+                  <BorderPane.margin>
+                      <Insets right="20.0" top="40.0" />
+                  </BorderPane.margin>
+                  <children>
+                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Environment Variables">
+                          <font>
+                              <Font size="15.0" />
+                          </font>
+                      </Text>
+                      <TableView fx:id="environmentTable" prefHeight="290.0" prefWidth="390.0">
+                          <columns>
+                              <TableColumn fx:id="envNameColumn" prefWidth="164.33331298828125" text="Name" />
+                              <TableColumn fx:id="envValueColumn" prefWidth="184.66668701171875" text="Value" />
+                          </columns>
+                          <opaqueInsets>
+                              <Insets />
+                          </opaqueInsets>
+                      </TableView>
+                  </children>
+              </VBox>
+          </right>
+         <top>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="double click the cell you want to edit before starting the simulation" BorderPane.alignment="CENTER" />
+         </top>
+      </BorderPane>
+   </content>
+</ScrollPane>

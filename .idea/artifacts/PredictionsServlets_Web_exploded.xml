@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="PredictionsServlets:Web exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/PredictionsServlets_Web_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="PredictionsServlets/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="PredictionsServlets" />
+          <element id="module-output" name="dto" />
+          <element id="module-output" name="engine" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$PROJECT_DIR$/3rd/Gson/gson-2.8.8.jar" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

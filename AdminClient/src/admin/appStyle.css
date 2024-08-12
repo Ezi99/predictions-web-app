@@ -1,0 +1,15 @@
+.loaded-file-label{
+    -fx-background-color: BurlyWood;
+}
+
+.body{
+    -fx-background-color: Bisque;
+}
+
+.success-message{
+    -fx-text-fill: Lime;
+}
+
+.unsuccessful-message{
+    -fx-text-fill: red;
+}

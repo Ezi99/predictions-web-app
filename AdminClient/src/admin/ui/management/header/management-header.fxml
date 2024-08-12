@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane fitToHeight="true" fitToWidth="true" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.ui.management.header.HeaderController">
+   <content>
+      <VBox minHeight="80.0" minWidth="560.0" prefWidth="700.0">
+         <children>
+            <HBox alignment="TOP_CENTER" prefWidth="200.0">
+               <children>
+                  <Label text="Predictions">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" spacing="10.0">
+               <children>
+                  <Button fx:id="loadFileButton" mnemonicParsing="false" onAction="#loadFileListener" text="Load File" />
+                  <Label fx:id="loadedFileLabel" prefWidth="400.0" styleClass="loaded-file-label" text="no file loaded currently" />
+                  <VBox>
+                     <children>
+                        <Label text="Simulation Queue">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <GridPane prefHeight="51.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="60.0" minWidth="10.0" prefWidth="20.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="40.0" minWidth="10.0" prefWidth="30.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Running" GridPane.rowIndex="1" />
+                              <Label text="Pending" />
+                              <Label text="Finished" GridPane.rowIndex="2" />
+                              <Label fx:id="pendingCount" text="0" GridPane.columnIndex="1" />
+                              <Label fx:id="runningCount" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label fx:id="finishedCount" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                           </children>
+                        </GridPane>
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
+            <HBox spacing="10.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <children>
+                  <Button fx:id="setThreadButton" mnemonicParsing="false" onAction="#threadCountListener" text="Set Threads Count" />
+                  <TextField fx:id="threadCountField" />
+                  <Label prefHeight="25.0" text="Threads Count">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="threadCountLabel" prefHeight="25.0" text="0" />
+               </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="TOP_CENTER" spacing="20.0">
+               <children>
+                  <Label fx:id="fileLoadedLabel" styleClass="success-message">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="fileNotLoadedLabel" styleClass="unsuccessful-message">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>

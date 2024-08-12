@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AdminClient/AdminClient.iml" filepath="$PROJECT_DIR$/AdminClient/AdminClient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PredictionWebApp.iml" filepath="$PROJECT_DIR$/PredictionWebApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PredictionsServlets/PredictionsServlets.iml" filepath="$PROJECT_DIR$/PredictionsServlets/PredictionsServlets.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UserClient/UserClient.iml" filepath="$PROJECT_DIR$/UserClient/UserClient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dto/dto.iml" filepath="$PROJECT_DIR$/dto/dto.iml" />
+      <module fileurl="file://$PROJECT_DIR$/engine/engine.iml" filepath="$PROJECT_DIR$/engine/engine.iml" />
+    </modules>
+  </component>
+</project>

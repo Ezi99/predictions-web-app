@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+
+<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+         tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="admin.ui.base.BaseController">
+    <tabs>
+        <Tab fx:id="managementTab" text="Management">
+            <content>
+                <fx:include fx:id="managementComponent" source="../management/management.fxml"/>
+            </content>
+        </Tab>
+        <Tab fx:id="allocationTab" text="Allocations">
+            <content>
+                <fx:include fx:id="allocationComponent" source="../allocation/allocations.fxml"/>
+            </content>
+        </Tab>
+        <Tab fx:id="executionHistoryTab" text="Executions History">
+            <content>
+                <fx:include fx:id="historyComponent" source="../history/admin-history.fxml"/>
+            </content>
+        </Tab>
+    </tabs>
+</TabPane>
