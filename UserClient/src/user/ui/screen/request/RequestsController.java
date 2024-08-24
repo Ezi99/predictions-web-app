@@ -88,7 +88,8 @@ public class RequestsController implements Closeable {
             public void handle(MouseEvent event) {
                 chosenEntry = requestsTable.getSelectionModel().getSelectedItem();
                 if (chosenEntry != null) {
-                    executeButton.setDisable(chosenEntry.getStatus() != RequestStatus.APPROVED);
+                    executeButton.setDisable(chosenEntry.getStatus() != RequestStatus.APPROVED
+                            || chosenEntry.getRequestedExecutions() == chosenEntry.getDoneExecutions());
                 }
             }
         };
@@ -250,7 +251,7 @@ public class RequestsController implements Closeable {
     private void updateRequestTable(List<RequestDTO> requestDTOs) {
         requestsTable.getItems().clear();
 
-        if(requestDTOs != null) {
+        if (requestDTOs != null) {
             for (RequestDTO requestDTO : requestDTOs) {
                 RequestTableEntry requestTableEntry = new RequestTableEntry();
                 SubmitRequestDTO submitRequestDTO = requestDTO.getSubmitRequestDTO();
@@ -270,7 +271,8 @@ public class RequestsController implements Closeable {
             if (chosenEntry != null && chosenEntry.getRequestID() == requestTableEntry.getRequestID()) {
                 requestsTable.getSelectionModel().select(i);
                 chosenEntry = requestTableEntry;
-                executeButton.setDisable(chosenEntry.getStatus() != RequestStatus.APPROVED);
+                executeButton.setDisable(chosenEntry.getStatus() != RequestStatus.APPROVED
+                        || chosenEntry.getRequestedExecutions() == chosenEntry.getDoneExecutions() + chosenEntry.getRunningExecutions());
                 break;
             }
             i++;
@@ -286,6 +288,17 @@ public class RequestsController implements Closeable {
 
     public void setActive() {
         startSimulationListRefresher();
+    }
+
+    public int getRequestedExecutions(int requestID) {
+
+        for (RequestTableEntry entry : requestsTable.getItems()) {
+            if (entry.getRequestID() == requestID) {
+                return entry.getRequestedExecutions();
+            }
+        }
+
+        return 0;
     }
 
     @Override

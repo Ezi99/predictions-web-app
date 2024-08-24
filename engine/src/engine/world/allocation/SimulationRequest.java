@@ -3,6 +3,7 @@ package engine.world.allocation;
 import dto.requests.RequestDTO;
 import dto.requests.RequestStatus;
 import dto.requests.SubmitRequestDTO;
+import engine.execution.SimulationState;
 import engine.execution.Termination;
 
 import java.util.ArrayList;
@@ -26,18 +27,23 @@ public class SimulationRequest {
         terminationDefinition = new Termination();
         worldIDs = new ArrayList<>();
         requestStatus = RequestStatus.PENDING;
+        runningExecutions = 0;
+        doneExecutions = 0;
     }
 
     public void setRequestedExecutions(int requestedExecutions) {
         this.requestedExecutions = requestedExecutions;
     }
 
-    public void setRunningExecutions(int runningExecutions) {
-        this.runningExecutions = runningExecutions;
-    }
-
-    public void setAccepted(RequestStatus accepted) {
-        requestStatus = accepted;
+    public void updateExecutingSimulations(SimulationState simulationState){
+        if(simulationState == SimulationState.RUNNING){
+            runningExecutions++;
+        } else {
+            runningExecutions--;
+            if(simulationState == SimulationState.FINISHED){
+                doneExecutions++;
+            }
+        }
     }
 
     public RequestDTO getRequestDTO() {
@@ -86,5 +92,9 @@ public class SimulationRequest {
 
     public List<Integer> getWorldIDs() {
         return worldIDs;
+    }
+
+    public boolean isExecutionValid(){
+        return (runningExecutions + doneExecutions) != requestedExecutions;
     }
 }

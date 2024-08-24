@@ -1,6 +1,10 @@
 package engine.world.allocation;
 
-import dto.requests.*;
+import dto.requests.AllocationRequestsDTO;
+import dto.requests.RequestDTO;
+import dto.requests.SubmitRequestDTO;
+import dto.requests.UpdateRequestStatusDTO;
+import engine.execution.SimulationState;
 import engine.execution.Termination;
 
 import java.util.*;
@@ -10,10 +14,6 @@ public class AllocationManager {
 
     public AllocationManager() {
         usersRequestsMap = new LinkedHashMap<>();
-    }
-
-    public void setRequestStatus(String userName, int requestNumber, RequestStatus status) {
-        usersRequestsMap.get(userName).get(requestNumber).setAccepted(status);
     }
 
     public void addRequest(SubmitRequestDTO submitRequestDTO, int requestID) {
@@ -82,7 +82,7 @@ public class AllocationManager {
         List<Integer> res = new ArrayList<>();
         Map<Integer, SimulationRequest> userRequestMap = usersRequestsMap.get(userName);
 
-        for(SimulationRequest simulationRequest : userRequestMap.values()){
+        for (SimulationRequest simulationRequest : userRequestMap.values()) {
             res.addAll(simulationRequest.getWorldIDs());
         }
 
@@ -91,5 +91,13 @@ public class AllocationManager {
 
     public Termination getTermination(String userName, int requestNumber) {
         return usersRequestsMap.get(userName).get(requestNumber).getTermination();
+    }
+
+    public void updateExecutionStatus(String userName, int requestID, SimulationState simulationState) {
+        usersRequestsMap.get(userName).get(requestID).updateExecutingSimulations(simulationState);
+    }
+
+    public boolean isExecutionValid(String userName, int requestID){
+        return usersRequestsMap.get(userName).get(requestID).isExecutionValid();
     }
 }

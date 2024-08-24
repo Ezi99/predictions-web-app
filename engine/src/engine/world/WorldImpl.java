@@ -1,7 +1,7 @@
 package engine.world;
 
 import dto.definition.*;
-import dto.execution.*;
+import dto.execution.SimulationDTO;
 import dto.execution.end.PopulationChartDTO;
 import dto.execution.end.PropertyHistogramDTO;
 import dto.execution.end.SimulationEndDTO;
@@ -21,8 +21,9 @@ import engine.execution.space.Grid;
 import engine.expression.Expression;
 import engine.expression.ExpressionImpl;
 import engine.rule.Rule;
+import engine.world.allocation.AllocationManager;
 import engine.world.loader.PRDWorldLoader;
-import resource.generated.*;
+import resource.generated.PRDWorld;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -31,6 +32,8 @@ public class WorldImpl implements World {
     private final String userName;
     private final int requestID;
     private final int worldID;
+    private boolean firstRun;
+    private AllocationManager allocationManager;
     private String name;
     private Map<String, EntityDefinition> entityDefinitionMap;
     private EnvVariablesManager envPropertiesDefinitions;
@@ -55,6 +58,12 @@ public class WorldImpl implements World {
         isSimulationOver = false;
         simulationState = SimulationState.PENDING;
         entityDefinitionMap = new HashMap<>();
+        firstRun = true;
+    }
+
+    @Override
+    public void setAllocationManager(AllocationManager allocationManager) {
+        this.allocationManager = allocationManager;
     }
 
     @Override // command 1
@@ -187,6 +196,11 @@ public class WorldImpl implements World {
     }
 
     @Override
+    public void setTermination(Termination termination) {
+        this.termination = termination;
+    }
+
+    @Override
     public ActiveEnvironment getActiveEnvironment() {
         return activeEnvironment;
     }
@@ -225,8 +239,13 @@ public class WorldImpl implements World {
     }
 
     @Override
-    public void setSimulationState(SimulationState simulationState) {
-        this.simulationState = simulationState;
+    public void setSimulationState(SimulationState state) {
+        if ((state != SimulationState.RUNNING || firstRun)) {
+            allocationManager.updateExecutionStatus(userName, requestID, state);
+        }
+
+        firstRun = state == SimulationState.PAUSED;
+        this.simulationState = state;
     }
 
     @Override
@@ -340,11 +359,6 @@ public class WorldImpl implements World {
     @Override
     public void setConsistency(List<EntityInfoDTO> consistency) {
         this.consistency = consistency;
-    }
-
-    @Override
-    public void setTermination(Termination termination) {
-        this.termination = termination;
     }
 
     private List<PropertyInfoDTO> createPropertiesInfoDTO(Collection<PropertyDefinition> propertyDefinitions) {

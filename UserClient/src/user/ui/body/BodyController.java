@@ -212,4 +212,13 @@ public class BodyController implements Closeable {
         executionComponentController.setExecutionInfo(worldInfoDTO, requestID);
         tabPane.getSelectionModel().select(executionTab);
     }
+
+    public int getRequestedExecutions(int requestID){
+        return requestsComponentController.getRequestedExecutions(requestID);
+    }
+
+    public int getActiveExecutions(int requestID){
+        return resultsComponentController.getActiveExecutions(requestID);
+    }
+
 }

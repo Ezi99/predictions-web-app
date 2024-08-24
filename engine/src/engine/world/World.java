@@ -1,8 +1,8 @@
 package engine.world;
 
 import dto.definition.*;
-import dto.execution.end.PopulationChartDTO;
 import dto.execution.SimulationDTO;
+import dto.execution.end.PopulationChartDTO;
 import dto.execution.end.PropertyHistogramDTO;
 import dto.execution.start.StartSimulationDTO;
 import engine.definition.entity.EntityDefinition;
@@ -11,11 +11,11 @@ import engine.execution.Termination;
 import engine.execution.instance.environment.api.ActiveEnvironment;
 import engine.execution.space.Grid;
 import engine.rule.Rule;
+import engine.world.allocation.AllocationManager;
 import resource.generated.PRDWorld;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public interface World {
     void loadPRDWorld(PRDWorld prdWorld);
@@ -53,6 +53,8 @@ public interface World {
     SimulationState getSimulationState();
 
     void setSimulationState(SimulationState simulationState);
+
+    void setAllocationManager(AllocationManager allocationManager);
 
     void setExitSimulation(boolean exit);
     Integer getID();

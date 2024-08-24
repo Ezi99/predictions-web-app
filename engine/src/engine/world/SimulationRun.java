@@ -47,6 +47,7 @@ public class SimulationRun implements Runnable {
     public void run() {
 
         world.setSimulationState(SimulationState.RUNNING);
+        System.out.println("here 1");
         Map<String, PopulationChartDTO> populationMap = new HashMap<>();
 
         for (EntityDefinition entityDefinition : world.getEntityDefinitionMap()) {
@@ -138,6 +139,7 @@ public class SimulationRun implements Runnable {
                             } catch (Exception e) {
                                 world.setExceptionMessage(e.getMessage());
                                 world.setSimulationState(SimulationState.FINISHED);
+                                System.out.println("here 2");
                             }
                         }
                     }
@@ -275,6 +277,7 @@ public class SimulationRun implements Runnable {
         }
 
         world.setSimulationState(SimulationState.FINISHED);
+        System.out.println("here 3");
         world.setConsistency(consistency);
         world.setPopulationChart(populationMap);
         world.setPropertyValueCounts(propertyHistogramDTOList);
@@ -304,12 +307,15 @@ public class SimulationRun implements Runnable {
         while (pause) {
             try {
                 world.setSimulationState(SimulationState.PAUSED);
+                System.out.println("here 4");
                 this.wait();
                 termination.setLastChecked(new Date());
             } catch (Exception ignored) {
             }
         }
+
         world.setSimulationState(SimulationState.RUNNING);
+        System.out.println("here 5");
     }
 
     public synchronized void resume() {

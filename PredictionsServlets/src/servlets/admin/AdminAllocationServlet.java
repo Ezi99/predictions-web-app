@@ -14,6 +14,7 @@ import java.io.IOException;
 
 @WebServlet(name = "AdminAllocationServlet", urlPatterns = {"/admin/allocations/requests"})
 public class AdminAllocationServlet extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String message = "you're supposed to have an admin user to access allocations !";

@@ -127,9 +127,18 @@ public class WorldManagementImpl implements WorldManagement {
 
     @Override
     public SimulationDTO startSimulation(WorldInfoDTO worldInfoDTO, String userName, int requestID) {
+        SimulationDTO simulationDTO;
+
+        if(!allocationManager.isExecutionValid(userName, requestID)){
+            simulationDTO = new SimulationDTO();
+            simulationDTO.setExceptionMessage("invalid execution request");
+            return simulationDTO;
+        }
+
         World worldInstance = new WorldImpl(worldID, userName, requestID);
+        worldInstance.setAllocationManager(allocationManager);
         ActiveEnvironmentDTO activeEnvDTO = instantiateWorld(worldInfoDTO, worldInstance);
-        SimulationDTO simulationDTO = createStartingSimulationDTO(worldInstance, activeEnvDTO.getEnvVariables());
+        simulationDTO = createStartingSimulationDTO(worldInstance, activeEnvDTO.getEnvVariables());
         SimulationRun simulationRun = new SimulationRun(worldInstance);
 
         worldInstance.setSimulationRun(simulationRun);
@@ -233,7 +242,6 @@ public class WorldManagementImpl implements WorldManagement {
 
         return startSimulationDTOS;
     }
-
 
     @Override
     public TerminationDTO getTerminationDTO(Integer worldID) {

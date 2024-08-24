@@ -11,7 +11,6 @@ import dto.execution.end.PropertyHistogramDTO;
 import dto.execution.start.StartSimulationDTO;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -41,7 +40,10 @@ import user.ui.tasks.result.SimulationRunTask;
 import user.utils.Constants;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import static user.utils.http.HttpClientUtil.HTTP_CLIENT;
 
@@ -124,10 +126,29 @@ public class ResultsController {
 
     @FXML
     void reRunListener(ActionEvent event) {
-        if (chosenSimulation != null) {
+        int requestID = chosenSimulation.getRequestID();
+        int requestedExecutions = bodyController.getRequestedExecutions(requestID);
+        int activeExecutions = getActiveExecutions(requestID);
+
+        if (chosenSimulation != null && activeExecutions != requestedExecutions) {
             bodyController.getActiveEnvironment(chosenSimulation.getID(), chosenSimulation.getRequestID());
             reRunButton.setDisable(true);
+        } else {
+            exceptionLabel.setText("cannot reRun simulation " + chosenSimulation.getID()
+            + ", you're asking for more active executions than requested");
         }
+    }
+
+    public int getActiveExecutions(int requestID){
+        int numOfExecutions = 0;
+
+        for(StartSimulationDTO startSimulationDTO : executionList.getItems()){
+            if(startSimulationDTO.getRequestID() == requestID){
+                numOfExecutions++;
+            }
+        }
+
+        return numOfExecutions;
     }
 
     @FXML

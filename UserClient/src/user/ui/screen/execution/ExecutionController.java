@@ -141,7 +141,14 @@ public class ExecutionController {
 
     @FXML
     void startButtonListener(ActionEvent event) {
-        setActiveEnvironment(worldInfoDTO);
+        int requestedExecutions = bodyController.getRequestedExecutions(requestID);
+        int activeExecutions = bodyController.getActiveExecutions(requestID);
+
+        if (requestedExecutions != activeExecutions) {
+            setActiveEnvironment(worldInfoDTO);
+        } else {
+            finalMessageLabel.setText("can't start since you're asking for more active executions than requested");
+        }
     }
 
     @FXML
@@ -196,7 +203,7 @@ public class ExecutionController {
         disableConfirmationButtons(false);
     }
 
-    private void disableConfirmationButtons(boolean status){
+    private void disableConfirmationButtons(boolean status) {
         confirmButton.setDisable(status);
         cancelButton.setDisable(status);
     }
