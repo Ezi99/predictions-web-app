@@ -48,14 +48,13 @@ public class WorldManagementImpl implements WorldManagement {
         PRDWorld tempPRDWorld = getPRDWorldFromFile(in);
         String simulationName = tempPRDWorld.getName().trim();
 
-        if (!worldDefinitionsMap.containsKey(simulationName)) {
-            worldDefinitionsMap.put(tempPRDWorld.getName().trim(), tempPRDWorld);
-        } else {
+        if (worldDefinitionsMap.containsKey(simulationName)) {
             throw new IllegalArgumentException(
                     "engine already got definition for " + simulationName + " simulation settings");
         }
 
         world.loadPRDWorld(tempPRDWorld);
+        worldDefinitionsMap.put(tempPRDWorld.getName().trim(), tempPRDWorld);
         return world.getWorldData();
     }
 
