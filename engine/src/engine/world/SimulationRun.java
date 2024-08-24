@@ -281,7 +281,6 @@ public class SimulationRun implements Runnable {
         world.setConsistency(consistency);
         world.setPopulationChart(populationMap);
         world.setPropertyValueCounts(propertyHistogramDTOList);
-        world.setSimulationOver(true);
     }
 
     private Map<String, Map<Object, Integer>> createPropertyValueCounts(String entityName) {

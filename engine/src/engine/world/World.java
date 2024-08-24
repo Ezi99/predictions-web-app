@@ -44,10 +44,6 @@ public interface World {
 
     void setSimulationRun(SimulationRun simulationRun);
 
-    boolean isSimulationOver();
-
-    void setSimulationOver(boolean isOver);
-
     SimulationDTO getCurrentStats();
 
     SimulationState getSimulationState();
@@ -57,7 +53,6 @@ public interface World {
     void setAllocationManager(AllocationManager allocationManager);
 
     void setExitSimulation(boolean exit);
-    Integer getID();
 
     StartSimulationDTO getSimulationStartInfo();
 

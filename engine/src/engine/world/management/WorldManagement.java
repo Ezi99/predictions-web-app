@@ -1,6 +1,9 @@
 package engine.world.management;
 
-import dto.definition.*;
+import dto.definition.ActiveEnvironmentDTO;
+import dto.definition.SimulationListDTO;
+import dto.definition.TerminationDTO;
+import dto.definition.WorldInfoDTO;
 import dto.execution.SimulationDTO;
 import dto.execution.start.StartSimulationDTO;
 import dto.requests.AllocationRequestsDTO;
@@ -13,7 +16,6 @@ import engine.world.World;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Set;
 
 public interface WorldManagement {
 
@@ -32,10 +34,6 @@ public interface WorldManagement {
     ActiveEnvironmentDTO instantiateWorld(WorldInfoDTO worldInfoDTO, World worldInstance);
 
     SimulationDTO startSimulation(WorldInfoDTO worldInfoDTO, String userName, int requestNumber);
-
-    void validateEnvVariableValue(PropertyInfoDTO propertyInfoDTO, String newValue);
-
-    boolean isSimulationOver(Integer worldID);
 
     SimulationDTO getSimulationWalkthrough(Integer worldID);
 
@@ -62,7 +60,6 @@ public interface WorldManagement {
     List<RequestDTO> getUserRequests(String userName);
 
     void removeUserRequests(String usernameFromSession);
-
 
     List<StartSimulationDTO> getUserSimulationsState(String username);
 }

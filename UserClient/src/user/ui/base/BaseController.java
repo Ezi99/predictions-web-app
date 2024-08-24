@@ -7,16 +7,16 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import user.ui.body.BodyController;
 import user.ui.login.LoginController;
+import user.utils.Constants;
+
 import java.io.Closeable;
 import java.io.IOException;
 import java.net.URL;
-import user.utils.Constants;
 
 public class BaseController implements Closeable {
 
     @FXML
     private ScrollPane scrollPaneBase;
-    private GridPane loginComponent;
     private LoginController loginController;
     private BorderPane bodyComponent;
     private BodyController bodyController;
@@ -32,7 +32,7 @@ public class BaseController implements Closeable {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(loginPageUrl);
-            loginComponent = fxmlLoader.load();
+            GridPane loginComponent = fxmlLoader.load();
             loginController = fxmlLoader.getController();
             loginController.setBaseController(this);
             loginComponent.prefWidthProperty().bind(scrollPaneBase.widthProperty());

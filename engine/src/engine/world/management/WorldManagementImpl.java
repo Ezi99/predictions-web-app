@@ -28,14 +28,12 @@ public class WorldManagementImpl implements WorldManagement {
     private final Map<Integer, World> worldMap;
     private final Map<String, PRDWorld> worldDefinitionsMap;
     private final AllocationManager allocationManager;
-    private World currentWorld;
     private int worldID;
     private int requestID;
     private int threadCount;
     private ExecutorService threadPool;
 
     public WorldManagementImpl() {
-        currentWorld = null;
         worldMap = new HashMap<>();
         worldDefinitionsMap = new HashMap<>();
         allocationManager = new AllocationManager();
@@ -95,18 +93,7 @@ public class WorldManagementImpl implements WorldManagement {
     }
 
 
-
     ////////////// run simulation process
-    @Override
-    public void validateEnvVariableValue(PropertyInfoDTO propertyInfoDTO, String newValue) {
-        currentWorld.validateEnvVariableValue(propertyInfoDTO, newValue);
-    }
-
-    @Override
-    public boolean isSimulationOver(Integer worldID) {
-        return worldMap.get(worldID).isSimulationOver();
-    }
-
     @Override
     public SimulationDTO getSimulationWalkthrough(Integer worldID) {
         return worldMap.get(worldID).getCurrentStats();
@@ -129,7 +116,7 @@ public class WorldManagementImpl implements WorldManagement {
     public SimulationDTO startSimulation(WorldInfoDTO worldInfoDTO, String userName, int requestID) {
         SimulationDTO simulationDTO;
 
-        if(!allocationManager.isExecutionValid(userName, requestID)){
+        if(!allocationManager.isExecutionRequestValid(userName, requestID)){
             simulationDTO = new SimulationDTO();
             simulationDTO.setExceptionMessage("invalid execution request");
             return simulationDTO;

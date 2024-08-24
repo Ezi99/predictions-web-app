@@ -126,16 +126,18 @@ public class ResultsController {
 
     @FXML
     void reRunListener(ActionEvent event) {
-        int requestID = chosenSimulation.getRequestID();
-        int requestedExecutions = bodyController.getRequestedExecutions(requestID);
-        int activeExecutions = getActiveExecutions(requestID);
+        if(chosenSimulation != null) {
+            int requestID = chosenSimulation.getRequestID();
+            int requestedExecutions = bodyController.getRequestedExecutions(requestID);
+            int activeExecutions = getActiveExecutions(requestID);
 
-        if (chosenSimulation != null && activeExecutions != requestedExecutions) {
-            bodyController.getActiveEnvironment(chosenSimulation.getID(), chosenSimulation.getRequestID());
-            reRunButton.setDisable(true);
-        } else {
-            exceptionLabel.setText("cannot reRun simulation " + chosenSimulation.getID()
-            + ", you're asking for more active executions than requested");
+            if (activeExecutions != requestedExecutions) {
+                bodyController.getActiveEnvironment(chosenSimulation.getID(), chosenSimulation.getRequestID());
+                reRunButton.setDisable(true);
+            } else {
+                exceptionLabel.setText("cannot reRun simulation " + chosenSimulation.getID()
+                        + ", you're asking for more active executions than requested");
+            }
         }
     }
 

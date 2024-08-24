@@ -9,9 +9,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 import user.utils.Constants;
 import user.utils.http.HttpClientUtil;
+
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Consumer;
 
 public class ExecutionListManager implements Runnable {
@@ -63,10 +63,6 @@ public class ExecutionListManager implements Runnable {
         }
 
         return res;
-    }
-
-    public void setRun(boolean run) {
-        this.run = run;
     }
 
     public void setStartSimulationConsumer(Consumer<List<StartSimulationDTO>> startSimulationConsumer) {

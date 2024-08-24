@@ -43,7 +43,6 @@ public class WorldImpl implements World {
     private Map<String, PopulationChartDTO> populationChart;
     private List<PropertyHistogramDTO> propertyValueCounts;
     private List<EntityInfoDTO> consistency;
-    private boolean isSimulationOver;
     private SimulationRun simulationRun;
     private SimulationState simulationState;
     private String exceptionMessage;
@@ -55,7 +54,6 @@ public class WorldImpl implements World {
         this.userName = userName;
         this.requestID = requestID;
         activeEnvironment = null;
-        isSimulationOver = false;
         simulationState = SimulationState.PENDING;
         entityDefinitionMap = new HashMap<>();
         firstRun = true;
@@ -211,23 +209,12 @@ public class WorldImpl implements World {
     }
 
     @Override
-    public boolean isSimulationOver() {
-        return isSimulationOver;
-    }
-
-    @Override
-    public void setSimulationOver(boolean isOver) {
-        isSimulationOver = true;
-    }
-
-    @Override
     public SimulationDTO getCurrentStats() {
         SimulationDTO simulationDTO = new SimulationDTO();
         simulationDTO.setCurrentSecond(simulationRun.getSeconds());
         simulationDTO.setCurrentTick(simulationRun.getTicks());
         simulationDTO.setEntityInfoDTOS(simulationRun.getEntitiesStatus());
         if (exceptionMessage != null) {
-            isSimulationOver = true;
             simulationDTO.setExceptionMessage(exceptionMessage);
         }
         return simulationDTO;
@@ -257,11 +244,6 @@ public class WorldImpl implements World {
     }
 
     @Override
-    public Integer getID() {
-        return worldID;
-    }
-
-    @Override
     public StartSimulationDTO getSimulationStartInfo() {
         StartSimulationDTO startSimulationDTO = new StartSimulationDTO();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy | HH.mm.ss");
@@ -288,7 +270,6 @@ public class WorldImpl implements World {
         SimulationEndDTO simulationEndDTO = new SimulationEndDTO();
 
         if (exceptionMessage != null) {
-            isSimulationOver = true;
             simulationDTO.setExceptionMessage(exceptionMessage);
         } else {
             simulationEndDTO.setConsistencies(consistency);

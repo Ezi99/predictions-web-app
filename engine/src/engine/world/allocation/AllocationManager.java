@@ -97,7 +97,7 @@ public class AllocationManager {
         usersRequestsMap.get(userName).get(requestID).updateExecutingSimulations(simulationState);
     }
 
-    public boolean isExecutionValid(String userName, int requestID){
+    public boolean isExecutionRequestValid(String userName, int requestID){
         return usersRequestsMap.get(userName).get(requestID).isExecutionValid();
     }
 }
